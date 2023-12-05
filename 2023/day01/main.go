@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/a-clean-kitchen/advent-of-code-go/aoc_lib"
 	"github.com/a-clean-kitchen/advent-of-code-go/util"
 )
 
@@ -40,9 +41,10 @@ func main() {
 
 func part1(input string) (builtInt int) {
 	for _, line := range strings.Split(input, "\n") {
-		first := findFirstDigit(line)
-		last := findFirstDigit(reverse(line))
-		val, _ := strconv.Atoi(first + last)
+		val, err := strconv.Atoi(findFirstDigit(line) + findFirstDigit(aoc_lib.ReverseString(line)))
+		if err != nil {
+			panic(err)
+		}
 		builtInt += val
 	}
 	return builtInt
@@ -60,16 +62,7 @@ func findFirstDigit(line string) (digit string) {
 	return digit
 }
 
-func reverse(value string) string {
-	data := []rune(value)
-	result := []rune{}
-
-	for i := len(data) - 1; i >= 0; i-- {
-		result = append(result, data[i])
-	}
-
-	return string(result)
-}
+func parseIntName(chars []string) {}
 
 func part2(input string) int {
 	return 1
